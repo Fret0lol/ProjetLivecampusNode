@@ -4,11 +4,13 @@ import { useAuthStore } from '../stores/auth.store'
 import Home from '../views/Home.vue'
 import ProductDetails from '../views/ProductDetails.vue'
 import Login from '../views/Login.vue'
+import Register from '../views/Register.vue'
 
 const routes = [
   { path: '/', component: Home },
   { path: '/product/:id', name: 'ProductDetails', component: ProductDetails},
-  { path: '/login', name: 'Login', component: Login}
+  { path: '/login', name: 'Login', component: Login},
+  { path: '/register', name: 'Register', component: Register}
 ]
 
 export const router = createRouter({
@@ -17,7 +19,7 @@ export const router = createRouter({
 })
 
 router.beforeEach(async (to) => {
-  const publicPages = ['/', '/login', '/product/:id']
+  const publicPages = ['/', '/login', '/register', '/product/:id']
   const authRequired = !publicPages.includes(to.path)
   const auth = useAuthStore()
 

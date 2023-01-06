@@ -15,7 +15,7 @@ router.post('/sign-in', (req, res) => {
 
 // Inscription
 router.post('/sign-up', (req, res) => {
-  newUser(req.body.email, req.body.password, req.body.role).then(data => {
+  newUser(req.body.email, req.body.password, req.body.role || 'user').then(data => {
     res.json(data)
   }).catch(err => {
     res.status(500).json(err)
