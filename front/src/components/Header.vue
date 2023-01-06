@@ -1,7 +1,7 @@
 <template>
 	<nav>
     <p @click="returnHome">Accueil</p>
-    <p v-if="authStore.user">Panier</p>
+    <p v-if="authStore.user" @click="panier">Panier</p>
     <p v-if="authStore.user" @click="logout">Déconnexion</p>
 		<p @click="login" v-if="!authStore.user">Connexion</p>
 		<p @click="register" v-if="!authStore.user">Inscription</p>
@@ -34,6 +34,12 @@ function register() {
 
 function logout () {
   return authStore.logout()
+}
+
+function panier () {
+  router.push({
+    name: 'Panier'
+  })
 }
 </script>
 <style scoped>

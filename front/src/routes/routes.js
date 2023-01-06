@@ -5,12 +5,14 @@ import Home from '../views/Home.vue'
 import ProductDetails from '../views/ProductDetails.vue'
 import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
+import Panier from '../views/Panier.vue'
 
 const routes = [
   { path: '/', component: Home },
   { path: '/product/:id', name: 'ProductDetails', component: ProductDetails},
   { path: '/login', name: 'Login', component: Login},
-  { path: '/register', name: 'Register', component: Register}
+  { path: '/register', name: 'Register', component: Register},
+  { path: '/panier', name: 'Panier', component: Panier}
 ]
 
 export const router = createRouter({

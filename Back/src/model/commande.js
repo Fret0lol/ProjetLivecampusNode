@@ -22,6 +22,17 @@ function getAllCommandesForUser(user_id) {
   })
 }
 
+function getAllCommandesForUserByStatut(user_id, statut) {
+  return new Promise((resolve, reject) => {
+    db.get("SELECT * FROM commande WHERE user_id=? AND statut=?", [user_id, statut], (err, res) => {
+      if (err) {
+        reject(err)
+      }
+      resolve(res)
+    })
+  })
+}
+
 function getCommandeById(id) {
   return new Promise((resolve, reject) => {
     db.get("SELECT * FROM commande WHERE id=?", id, (err, res) => {
@@ -70,6 +81,7 @@ module.exports = {
   getAllCommandes,
   getAllCommandesForUser,
   getCommandeById,
+  getAllCommandesForUserByStatut,
   addCommande,
   updateCommande,
   deleteCommande

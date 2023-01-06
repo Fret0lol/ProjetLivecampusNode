@@ -3,8 +3,10 @@ const router = express.Router()
 
 const { getAllLigneForCommande, addLigneCommande, updateLigneCommande, deleteLigneCommande } = require("../model/ligne_commande")
 
-router.get('/commande_id', (req, res) => {
-  getAllLigneForCommande(req.body.commande_id).then(data => {
+const tokenCheck = require('../middleware/token')
+
+router.get('/:commande_id', tokenCheck, (req, res) => {
+  getAllLigneForCommande(req.params.commande_id).then(data => {
     res.json(data)
   }).catch(err => {
     res.status(500).json(err)

@@ -7,7 +7,6 @@ export async function signIn(email, password) {
     email: email,
     password: password
   })
-  console.log(data)
 
   let res = await axios({
     method: 'POST',
@@ -17,7 +16,6 @@ export async function signIn(email, password) {
     },
     data: data
   })
-  console.log(data)
   return res.data
 }
 

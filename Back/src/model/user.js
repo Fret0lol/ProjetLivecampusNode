@@ -9,7 +9,7 @@ function connectUser(email, password) {
       } 
       if (res?.password == password) {
         const token = jwt.sign({ email: res.email, role: res.role }, 'ma super clé');
-        resolve({ token })
+        resolve({ token, id: res.id })
       }
       rej({ mess: "utilisateur ou mot de passe incorrect" })
     })

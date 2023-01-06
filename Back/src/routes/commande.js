@@ -1,9 +1,11 @@
 const express = require('express')
 const router = express.Router()
 
-const { getAllCommandes, getAllCommandesForUser, getCommandeById, addCommande, updateCommande, deleteCommande } = require('../model/commande')
+const { getAllCommandes, getAllCommandesForUser, getAllCommandesForUserByStatut, getCommandeById, addCommande, updateCommande, deleteCommande } = require('../model/commande')
 
-router.get('/', (req, res) => {
+const tokenCheck = require('../middleware/token')
+
+router.get('/', tokenCheck, (req, res) => {
   getAllCommandes().then(data => {
     res.json(data)
   }).catch(err => {
@@ -11,16 +13,24 @@ router.get('/', (req, res) => {
   })
 })
 
-router.get('/user-id', (req, res) => {
-  getAllCommandesForUser(req.body.user_id).then(data => {
+router.get('/user/:userid', (req, res) => {
+  getAllCommandesForUser(req.params.userid).then(data => {
     res.json(data)
   }).catch(err => {
     res.status(500).json(err)
   })
 })
 
-router.get('/id', (req, res) => {
-  getCommandeById(req.body.id).then(data => {
+router.get('/user/:userid/statut/:statut', (req, res) => {
+  getAllCommandesForUserByStatut(req.params.userid, req.params.statut).then(data => {
+    res.json(data)
+  }).catch(err => {
+    res.status(500).json(err)
+  })
+})
+
+router.get('/:id', (req, res) => {
+  getCommandeById(req.params.id).then(data => {
     res.json(data)
   }).catch(err => {
     res.status(500).json(err)
