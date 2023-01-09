@@ -1,45 +1,30 @@
 <template>
 	<nav>
-    <p @click="returnHome">Accueil</p>
-    <p v-if="authStore.user" @click="panier">Panier</p>
+    <RouterLink to="/">
+      <p>Accueil</p>
+    </RouterLink>
+    <RouterLink v-if="authStore.user" to="/user">
+      <p>Compte</p>
+    </RouterLink>
+    <RouterLink v-if="authStore.user" to="/panier">
+      <p>Panier</p>
+    </RouterLink>
     <p v-if="authStore.user" @click="logout">Déconnexion</p>
-		<p @click="login" v-if="!authStore.user">Connexion</p>
-		<p @click="register" v-if="!authStore.user">Inscription</p>
+    <RouterLink v-if="!authStore.user" to="/login">
+      <p>Connexion</p>
+    </RouterLink>
+    <RouterLink v-if="!authStore.user" to="/register">
+      <p>Inscription</p>
+    </RouterLink>
 	</nav>
 </template>
 
 <script setup>
-import { useRouter } from 'vue-router';
 import { useAuthStore } from '../stores/auth.store'
 const authStore = useAuthStore()
-const router = useRouter()
-
-function returnHome () {
-  router.push({
-    path: '/'
-  })
-}
-
-function login () {
-  router.push({
-    name: 'Login'
-  })
-}
-
-function register() {
-  router.push({
-    name: 'Register'
-  })
-}
 
 function logout () {
   return authStore.logout()
-}
-
-function panier () {
-  router.push({
-    name: 'Panier'
-  })
 }
 </script>
 <style scoped>

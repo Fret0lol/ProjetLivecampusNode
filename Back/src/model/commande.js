@@ -13,7 +13,7 @@ function getAllCommandes() {
 
 function getAllCommandesForUser(user_id) {
   return new Promise((resolve, reject) => {
-    db.get("SELECT * FROM commande WHERE user_id=?", user_id, (err, res) => {
+    db.all("SELECT * FROM commande WHERE user_id=?", user_id, (err, res) => {
       if (err) {
         reject(err)
       }
@@ -46,7 +46,7 @@ function getCommandeById(id) {
 
 function addCommande(date, statut, user_id) {
   return new Promise((resolve, reject) => {
-    db.run("INSERT INTO commande (date, statut, user_id) VALUES(?,?,?)", [date, statut, user_id], (err) => {
+    db.run("INSERT INTO commande (date, statut, user_id) VALUES(?,?,?)", [date, statut, user_id], function (err) {
       if (err) {
         reject(err)
       }

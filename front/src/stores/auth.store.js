@@ -3,6 +3,7 @@ import { defineStore } from "pinia";
 import { signIn } from '../services/user'
 import { router } from "../routes/routes";
 
+import { usePanierStore } from './panier.store'
 
 export const useAuthStore = defineStore({
   id: 'auth',
@@ -21,8 +22,10 @@ export const useAuthStore = defineStore({
       router.push(this.returnUrl || '/')
     },
     logout() {
+      const panierStore = usePanierStore()
       this.user = null
       localStorage.removeItem('user')
+      panierStore.clear()
       router.push('/')
     }
   }

@@ -16,7 +16,8 @@
           <p>Prix : </p>
           <p>{{ product.prix }} €</p>
         </div>
-        <button>Ajouter au panier</button>
+        <input type="number" v-model="quantite">
+        <button @click="addPanier">Ajouter au panier</button>
       </div>
 
     </div>
@@ -55,12 +56,17 @@
 }
 </style>
 <script setup>
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { onMounted, ref } from 'vue';
 import { getProduct } from '../services/product';
 
+import { usePanierStore } from '../stores/panier.store';
+
+const panierStore = usePanierStore()
 const route = useRoute();
+const router = useRouter()
 let product = ref({})
+let quantite = ref(1)
 
 onMounted(() => {
   getProduct(route.params.id).then(data => {
@@ -68,4 +74,11 @@ onMounted(() => {
     product.value = data
   })
 })
+
+function addPanier() {
+  panierStore.add(product.value, quantite.value)
+  router.push({
+    name: 'Panier'
+  })
+}
 </script>

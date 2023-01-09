@@ -5,7 +5,7 @@ const { getAllLigneForCommande, addLigneCommande, updateLigneCommande, deleteLig
 
 const tokenCheck = require('../middleware/token')
 
-router.get('/:commande_id', tokenCheck, (req, res) => {
+router.get('/:commande_id', (req, res) => {
   getAllLigneForCommande(req.params.commande_id).then(data => {
     res.json(data)
   }).catch(err => {

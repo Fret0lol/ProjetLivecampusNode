@@ -6,13 +6,17 @@ import ProductDetails from '../views/ProductDetails.vue'
 import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
 import Panier from '../views/Panier.vue'
+import User from '../views/User.vue'
+import Commandes from '../views/Commandes.vue'
 
 const routes = [
   { path: '/', component: Home },
   { path: '/product/:id', name: 'ProductDetails', component: ProductDetails},
   { path: '/login', name: 'Login', component: Login},
   { path: '/register', name: 'Register', component: Register},
-  { path: '/panier', name: 'Panier', component: Panier}
+  { path: '/panier', name: 'Panier', component: Panier},
+  { path: '/user', name: 'User', component: User},
+  { path: '/commandes', name: 'Commandes', component: Commandes}
 ]
 
 export const router = createRouter({

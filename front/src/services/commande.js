@@ -2,6 +2,7 @@ import axios from 'axios'
 
 const URL = 'http://localhost:3000'
 
+
 export async function getAllCommande() {
   let res = await axios({
     method: 'GET',
@@ -28,6 +29,24 @@ export async function getCommandeForUserByStatut(user_id, statut) {
     headers: { 
       'Content-Type': 'application/json'
     }
+  })
+  return res.data
+}
+
+export async function addCommande(user_id) {
+  let data = JSON.stringify({
+    date: new Date().toUTCString(),
+    statut: 'valide',
+    user_id: user_id
+  })
+
+  let res = await axios({
+    method: 'POST',
+    url: `${URL}/commande/add`,
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    data: data
   })
   return res.data
 }

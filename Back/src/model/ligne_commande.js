@@ -2,7 +2,7 @@ const db = require('../db/db')
 
 function getAllLigneForCommande(commande_id) {
   return new Promise((resolve, reject) => {
-    db.get("SELECT * FROM ligne_commande WHERE commande_id=?", commande_id, (err, res) => {
+    db.all("SELECT * FROM ligne_commande WHERE commande_id=?", commande_id, (err, res) => {
       if (err) {
         reject(err)
       }
