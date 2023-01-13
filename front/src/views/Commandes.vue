@@ -29,7 +29,7 @@ const authStore = useAuthStore();
 const commandes = ref([]);
 
 onMounted(async () => {
-	commandes.value = await getCommandeForUser(authStore.user.id);
+	commandes.value = await getCommandeForUser(authStore.user.id)
 	commandes.value.forEach(async (commande) => {
     commande.ligne_commande = []
 		let data = await getAllLigneForCommande(commande.id);

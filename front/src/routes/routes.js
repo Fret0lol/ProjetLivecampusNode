@@ -8,6 +8,8 @@ import Register from '../views/Register.vue'
 import Panier from '../views/Panier.vue'
 import User from '../views/User.vue'
 import Commandes from '../views/Commandes.vue'
+import AdminDashboard from '../views/AdminDashboard.vue'
+import ProduitForm from '../views/ProduitForm.vue'
 
 const routes = [
   { path: '/', component: Home },
@@ -16,7 +18,9 @@ const routes = [
   { path: '/register', name: 'Register', component: Register},
   { path: '/panier', name: 'Panier', component: Panier},
   { path: '/user', name: 'User', component: User},
-  { path: '/commandes', name: 'Commandes', component: Commandes}
+  { path: '/commandes', name: 'Commandes', component: Commandes},
+  { path: '/admin/dashboard', name: 'Dashboard', component: AdminDashboard},
+  { path: '/admin/produits/form', name: 'FormProduit', component: ProduitForm}
 ]
 
 export const router = createRouter({
