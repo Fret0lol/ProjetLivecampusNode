@@ -45,8 +45,10 @@ function addProduct(nom, desc, prix, photo) {
 }
 function updateProduit(id, nom, desc, prix, photo) {
   return new Promise((resolve, rej) => {
-    db.run("UPDATE produit SET nom=?,description=?,prix=?,photo=? WHERE id=?", [nom, desc, prix, photo, id], (err, res) => {
-      if (err) rej(err)
+    db.run("UPDATE product SET nom=?,description=?,prix=?,photo=? WHERE id=?", [nom, desc, prix, photo, id], (err, res) => {
+      if (err) {
+        rej(err)
+      }
       resolve({ mess: "Produit modifié" })
     })
   })

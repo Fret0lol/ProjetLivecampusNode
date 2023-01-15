@@ -3,9 +3,9 @@ const router = express.Router()
 
 const { getAllCommandes, getAllCommandesForUser, getAllCommandesForUserByStatut, getCommandeById, addCommande, updateCommande, deleteCommande } = require('../model/commande')
 
-const tokenCheck = require('../middleware/token')
+const { isAdminCheck, tokenCheck } = require('../middleware/token')
 
-router.get('/', tokenCheck, (req, res) => {
+router.get('/',isAdminCheck, (req, res) => {
   getAllCommandes().then(data => {
     res.json(data)
   }).catch(err => {
@@ -13,7 +13,7 @@ router.get('/', tokenCheck, (req, res) => {
   })
 })
 
-router.get('/user/:userid', (req, res) => {
+router.get('/user/:userid', tokenCheck, (req, res) => {
   getAllCommandesForUser(req.params.userid).then(data => {
     res.json(data)
   }).catch(err => {
@@ -21,7 +21,7 @@ router.get('/user/:userid', (req, res) => {
   })
 })
 
-router.get('/user/:userid/statut/:statut', (req, res) => {
+router.get('/user/:userid/statut/:statut', tokenCheck, (req, res) => {
   getAllCommandesForUserByStatut(req.params.userid, req.params.statut).then(data => {
     res.json(data)
   }).catch(err => {
@@ -29,7 +29,7 @@ router.get('/user/:userid/statut/:statut', (req, res) => {
   })
 })
 
-router.get('/:id', (req, res) => {
+router.get('/:id', tokenCheck, (req, res) => {
   getCommandeById(req.params.id).then(data => {
     res.json(data)
   }).catch(err => {
@@ -37,7 +37,7 @@ router.get('/:id', (req, res) => {
   })
 })
 
-router.post('/add', (req, res) => {
+router.post('/add', tokenCheck, (req, res) => {
   addCommande(req.body.date, req.body.statut, req.body.user_id).then(data => {
     res.json(data)
   }).catch(err => {
@@ -45,7 +45,7 @@ router.post('/add', (req, res) => {
   })
 })
 
-router.put('/update', (req, res) => {
+router.put('/:id', tokenCheck, (req, res) => {
   updateCommande(req.body.id, req.body.statut).then(data => {
     res.json(data)
   }).catch(err => {
@@ -53,7 +53,7 @@ router.put('/update', (req, res) => {
   })
 })
 
-router.delete('/delete', (req, res) => {
+router.delete('/delete', isAdminCheck, (req, res) => {
   deleteCommande(req.body.id).then(data => {
     res.json(data)
   }).catch(err => {

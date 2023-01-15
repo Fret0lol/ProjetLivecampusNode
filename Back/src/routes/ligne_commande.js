@@ -3,9 +3,9 @@ const router = express.Router()
 
 const { getAllLigneForCommande, addLigneCommande, updateLigneCommande, deleteLigneCommande } = require("../model/ligne_commande")
 
-const tokenCheck = require('../middleware/token')
+const { tokenCheck, isAdminCheck } = require('../middleware/token')
 
-router.get('/:commande_id', (req, res) => {
+router.get('/:commande_id', tokenCheck, (req, res) => {
   getAllLigneForCommande(req.params.commande_id).then(data => {
     res.json(data)
   }).catch(err => {
@@ -13,7 +13,7 @@ router.get('/:commande_id', (req, res) => {
   })
 })
 
-router.post('/add', (req, res) => {
+router.post('/add', tokenCheck, (req, res) => {
   addLigneCommande(req.body.commande_id, req.body.product_id, req.body.quantite).then(data => {
     res.json(data)
   }).catch(err => {
@@ -21,7 +21,7 @@ router.post('/add', (req, res) => {
   })
 })
 
-router.put('/update', (req, res) => {
+router.put('/update', tokenCheck, (req, res) => {
   updateLigneCommande(req.body.commande_id, req.body.product_id, req.body.quantite).then(data => {
     res.json(data)
   }).catch(err => {
@@ -29,7 +29,7 @@ router.put('/update', (req, res) => {
   })
 })
 
-router.delete('/delete', (req, res) => {
+router.delete('/delete', isAdminCheck, (req, res) => {
   deleteLigneCommande(req.body.commande_id, req.body.product_id).then(data => {
     res.json(data)
   }).catch(err => {

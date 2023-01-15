@@ -3,6 +3,9 @@
     <RouterLink to="/">
       <p>Accueil</p>
     </RouterLink>
+    <RouterLink v-if="authStore.user?.role === 'admin'" to="/admin/commandes">
+      <p>Dashboard</p>
+    </RouterLink>
     <RouterLink v-if="authStore.user" to="/user">
       <p>Compte</p>
     </RouterLink>

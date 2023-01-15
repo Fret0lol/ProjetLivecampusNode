@@ -1,28 +1,14 @@
 <template>
 	<div id="commande">
-		<div class="commande" v-for="commande in commandes">
-			<div class="commande-header">
-				<div class="commande-header_left">
-					<p>Commande n°{{ commande.id }}</p>
-					<p>Date : {{ commande.date }}</p>
-				</div>
-				<div class="commande-header_right">
-					<p>Statut : {{ commande.statut }}</p>
-				</div>
-			</div>
-			<div class="commande-content">
-        <LigneCommande v-for="ligne in commande.ligne_commande" :photo="ligne.product?.photo" :nom="ligne.product?.nom" :prix="ligne.product?.prix" :quantite="ligne.quantite" :updatable="false"></LigneCommande>
-			</div>
-		</div>
+		<Commande v-for="commande in commandes" :commande="commande"></Commande>
+		<p v-if="commandes.length < 1">Vous n'avez pas de commandes</p>
 	</div>
 </template>
 <script setup>
-import LigneCommande from "../components/LigneCommande.vue";
+import Commande from '../components/Commande.vue'
 import {onMounted, ref} from "vue";
 import {useAuthStore} from "../stores/auth.store";
 import {getCommandeForUser} from "../services/commande";
-import {getAllLigneForCommande} from "../services/ligne_commande";
-import {getProduct} from "../services/product";
 
 const authStore = useAuthStore();
 
@@ -30,16 +16,6 @@ const commandes = ref([]);
 
 onMounted(async () => {
 	commandes.value = await getCommandeForUser(authStore.user.id)
-	commandes.value.forEach(async (commande) => {
-    commande.ligne_commande = []
-		let data = await getAllLigneForCommande(commande.id);
-		await data.forEach(async (ligne_commande) => {
-			let product = await getProduct(ligne_commande.product_id);
-			ligne_commande.product = product;
-			ligne_commande.quantite = ligne_commande.quantite;
-      commande.ligne_commande = data
-		});
-	});
 });
 </script>
 <style>
